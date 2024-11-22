@@ -4,12 +4,16 @@
  */
 package org.jboss.modcluster.demo.servlet;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.Serial;
 import java.net.URI;
 import java.util.Collections;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebInitParam;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.HttpClientUtils;
@@ -18,9 +22,18 @@ import org.apache.http.impl.client.HttpClientBuilder;
 
 /**
  * @author Paul Ferraro
+ * @author Radoslav Husar
  */
+@WebServlet(
+        name = "send",
+        urlPatterns = {"/send"},
+        initParams = {
+                @WebInitParam(name = "size", value = "100")
+        }
+)
 public class SendTrafficLoadServlet extends LoadServlet {
 
+    @Serial
     private static final long serialVersionUID = -8586013739155819909L;
     private static final String SIZE = "size";
 

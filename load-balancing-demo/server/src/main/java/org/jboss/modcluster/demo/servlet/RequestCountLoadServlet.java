@@ -4,11 +4,15 @@
  */
 package org.jboss.modcluster.demo.servlet;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.Serial;
 import java.net.URI;
 import java.util.Collections;
+
+import jakarta.servlet.annotation.WebInitParam;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.HttpClientUtils;
@@ -17,9 +21,18 @@ import org.apache.http.impl.client.HttpClientBuilder;
 
 /**
  * @author Paul Ferraro
+ * @author Radoslav Husar
  */
+@WebServlet(
+        name = "requests",
+        urlPatterns = {"/requests"},
+        initParams = {
+                @WebInitParam(name = "count", value = "50")
+        }
+)
 public class RequestCountLoadServlet extends LoadServlet {
 
+    @Serial
     private static final long serialVersionUID = -5001091954463802789L;
 
     @Override

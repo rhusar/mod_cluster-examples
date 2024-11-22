@@ -10,13 +10,15 @@
         <artifactId>mod_cluster-demo</artifactId>
         <version>2.1.0.Final-SNAPSHOT</version>
     </parent>
+
     <artifactId>mod_cluster-demo-server</artifactId>
     <name>mod_cluster Examples: Demo - Server</name>
     <packaging>war</packaging>
+
     <dependencies>
         <dependency>
-            <groupId>org.jboss.spec.javax.servlet</groupId>
-            <artifactId>jboss-servlet-api_3.0_spec</artifactId>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -24,4 +26,5 @@
             <artifactId>httpclient</artifactId>
         </dependency>
     </dependencies>
+
 </project>

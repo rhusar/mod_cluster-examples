@@ -5,17 +5,26 @@
 package org.jboss.modcluster.demo.servlet;
 
 import java.io.IOException;
+import java.io.Serial;
+import java.util.Collections;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * @author Paul Ferraro
+ * @author Radoslav Husar
  */
+@WebServlet(
+        name = "record",
+        urlPatterns = {"/record"}
+)
 public class RecordServlet extends LoadServlet {
-    /** The serialVersionUID */
+
+    @Serial
     private static final long serialVersionUID = -4143320241936636855L;
 
     private static final String DESTROY = "destroy";
@@ -25,7 +34,7 @@ public class RecordServlet extends LoadServlet {
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(true);
 
-        boolean destroy = Boolean.valueOf(request.getParameter(DESTROY));
+        boolean destroy = Boolean.parseBoolean(request.getParameter(DESTROY));
 
         if (destroy) {
             session.invalidate();
@@ -33,14 +42,14 @@ public class RecordServlet extends LoadServlet {
             String timeout = request.getParameter(TIMEOUT);
 
             if (timeout != null) {
-                session.setMaxInactiveInterval(Integer.valueOf(timeout));
+                session.setMaxInactiveInterval(Integer.parseInt(timeout));
             }
         }
 
         if (!request.getAttributeNames().hasMoreElements()) {
             System.out.println("No request attributes");
         }
-        for (String attribute: java.util.Collections.list(request.getAttributeNames())) {
+        for (String attribute : Collections.list(request.getAttributeNames())) {
             System.out.println(attribute + " = " + request.getAttribute(attribute));
         }
         response.setHeader("X-ClusterNode", this.getJvmRoute());
