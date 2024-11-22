@@ -4,7 +4,6 @@
  */
 package org.jboss.modcluster.demo.client.load;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -24,7 +23,7 @@ public enum ServerLoadServlets {
                     "Number of seconds to hold the connections before returning to datasource", "15")),
 
     CONNECTOR_THREAD_USAGE("Connector Thread Use",
-            "Generates server load by tieing up threads in the webserver connections pool for a period", "connectors",
+            "Generates server load by tying up threads in the webserver connections pool for a period", "connectors",
             new ServerLoadParam("count", "Number of Connections", "Number of connection pool threads to tie up", "50"),
             new ServerLoadParam("duration", "Duration", "Number of seconds to tie up the connections", "15")),
 
@@ -49,7 +48,7 @@ public enum ServerLoadServlets {
 
     REQUEST_COUNT_USAGE("Request Count",
             "Generates server load by making numerous requests, increasing the request count on the target server.",
-            "requests", new ServerLoadParam("count", "Number of Requests", "Number of requestss to make", "50"));
+            "requests", new ServerLoadParam("count", "Number of Requests", "Number of requests to make", "50"));
 
     private final String label;
     private final String description;
@@ -61,7 +60,7 @@ public enum ServerLoadServlets {
         this.description = description;
         this.servletPath = servletPath;
         if (params != null) {
-            this.params = Collections.unmodifiableList(Arrays.asList(params));
+            this.params = List.of(params);
         } else {
             this.params = Collections.emptyList();
         }

@@ -21,8 +21,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class RequestDriver {
     private Client[] clients;
 
-    private final ConcurrentMap<String, AtomicInteger> requestCounts = new ConcurrentHashMap<String, AtomicInteger>();
-    private final ConcurrentMap<String, AtomicInteger> sessionCounts = new ConcurrentHashMap<String, AtomicInteger>();
+    private final ConcurrentMap<String, AtomicInteger> requestCounts = new ConcurrentHashMap<>();
+    private final ConcurrentMap<String, AtomicInteger> sessionCounts = new ConcurrentHashMap<>();
 
     private final AtomicBoolean stopped = new AtomicBoolean(false);
     private Thread startThread;
@@ -66,7 +66,8 @@ public class RequestDriver {
         if (this.startThread != null && this.startThread.isAlive()) {
             try {
                 this.startThread.join(2000);
-            } catch (InterruptedException e) {
+            } catch (InterruptedException ignored) {
+                // Ignored.
             }
 
             if (this.startThread.isAlive()) {
@@ -162,7 +163,8 @@ public class RequestDriver {
                     if (cookie != null && destroy_url != null) {
                         executeRequest(destroy_url);
                     }
-                } catch (IOException e) {
+                } catch (IOException ignored) {
+                    // Ignored.
                 } finally {
                     // If we haven't already cleaned up this thread's
                     // session info, do so now
@@ -182,7 +184,8 @@ public class RequestDriver {
                     if (this.isAlive()) {
                         this.interrupt();
                     }
-                } catch (InterruptedException e) {
+                } catch (InterruptedException ignored) {
+                    // Ignored.
                 }
             }
         }

@@ -159,10 +159,10 @@ public class ModClusterDemo {
             public void stateChanged(ChangeEvent e) {
                 if (loadPanel.equals(tabbedPane.getSelectedComponent())) {
                     String text = targetHostNameField.getText();
-                    if (text == null || text.length() == 0)
+                    if (text == null || text.isEmpty())
                         targetHostNameField.setText(proxyHostNameField.getText());
                     text = targetPortField.getText();
-                    if (text == null || text.length() == 0)
+                    if (text == null || text.isEmpty())
                         targetPortField.setText(proxyPortField.getText());
                 }
             }
@@ -172,8 +172,8 @@ public class ModClusterDemo {
     private JPanel createClientControlPanel() {
         final JPanel controlPanel = new JPanel();
         GridBagLayout gridBagLayout = new GridBagLayout();
-        gridBagLayout.columnWidths = new int[] { 7, 0, 7, 0, 7, 0, 7, 7, 0, 0, 7 };
-        gridBagLayout.rowHeights = new int[] { 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0 };
+        gridBagLayout.columnWidths = new int[] {7, 0, 7, 0, 7, 0, 7, 7, 0, 0, 7};
+        gridBagLayout.rowHeights = new int[] {0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0};
         controlPanel.setLayout(gridBagLayout);
 
         JLabel label = new JLabel();
@@ -279,7 +279,7 @@ public class ModClusterDemo {
         controlPanel.add(sessionTimeoutLabel, gridBagConstraints);
 
         sessionTimeoutField = new JTextField();
-        sessionTimeoutField.setText(String.valueOf(DEFAULT_SESSION_TIMEOUT));
+        sessionTimeoutField.setText(DEFAULT_SESSION_TIMEOUT);
         sessionTimeoutField.setEnabled(destroySessionField.isSelected());
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridy = 4;
@@ -382,8 +382,8 @@ public class ModClusterDemo {
         controlPanel.add(statusPanel, gridBagConstraints);
 
         gridBagLayout = new GridBagLayout();
-        gridBagLayout.columnWidths = new int[] { 0, 0, 7 };
-        gridBagLayout.rowHeights = new int[] { 0, 7, 0, 0 };
+        gridBagLayout.columnWidths = new int[] {0, 0, 7};
+        gridBagLayout.rowHeights = new int[] {0, 7, 0, 0};
         statusPanel.setLayout(gridBagLayout);
 
         label = new JLabel();
@@ -405,7 +405,7 @@ public class ModClusterDemo {
         statusPanel.add(label, gridBagConstraints);
 
         totalClientsLabel = new JLabel();
-        totalClientsLabel.setText(String.valueOf("0"));
+        totalClientsLabel.setText("0");
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridy = 2;
         gridBagConstraints.gridx = 3;
@@ -421,7 +421,7 @@ public class ModClusterDemo {
         statusPanel.add(label, gridBagConstraints);
 
         liveClientsLabel = new JLabel();
-        liveClientsLabel.setText(String.valueOf("0"));
+        liveClientsLabel.setText("0");
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridy = 3;
         gridBagConstraints.gridx = 3;
@@ -437,7 +437,7 @@ public class ModClusterDemo {
         statusPanel.add(label, gridBagConstraints);
 
         failedClientsLabel = new JLabel();
-        failedClientsLabel.setText(String.valueOf("0"));
+        failedClientsLabel.setText("0");
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridy = 4;
         gridBagConstraints.gridx = 3;
@@ -450,8 +450,8 @@ public class ModClusterDemo {
     private JPanel createServerLoadControlPanel() {
         final JPanel loadPanel = new JPanel();
         GridBagLayout gridBagLayout = new GridBagLayout();
-        gridBagLayout.columnWidths = new int[] { 7, 0, 7, 0, 7, 0, 7, 7, 0, 0, 7 };
-        gridBagLayout.rowHeights = new int[] { 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0 };
+        gridBagLayout.columnWidths = new int[] {7, 0, 7, 0, 7, 0, 7, 7, 0, 0, 7};
+        gridBagLayout.rowHeights = new int[] {0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0};
         loadPanel.setLayout(gridBagLayout);
 
         JLabel label = new JLabel();
@@ -603,8 +603,8 @@ public class ModClusterDemo {
     private JPanel createRequestBalancingPanel() {
         final JPanel requestBalancingPanel = new JPanel();
         GridBagLayout gridBagLayout = new GridBagLayout();
-        gridBagLayout.columnWidths = new int[] { 0 };
-        gridBagLayout.rowHeights = new int[] { 0, 0 };
+        gridBagLayout.columnWidths = new int[] {0};
+        gridBagLayout.rowHeights = new int[] {0, 0};
         requestBalancingPanel.setLayout(gridBagLayout);
 
         final JPanel requestChart = new ChartPanel(this.chartManager.getRequestBalancingChart(), true);
@@ -618,8 +618,8 @@ public class ModClusterDemo {
 
         JPanel clientStatusPanel = new JPanel();
         gridBagLayout = new GridBagLayout();
-        gridBagLayout.columnWidths = new int[] { 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7 };
-        gridBagLayout.rowHeights = new int[] { 7, 0 };
+        gridBagLayout.columnWidths = new int[] {7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7};
+        gridBagLayout.rowHeights = new int[] {7, 0};
         clientStatusPanel.setLayout(gridBagLayout);
 
         gridBagConstraints = new GridBagConstraints();
@@ -638,7 +638,7 @@ public class ModClusterDemo {
         clientStatusPanel.add(label, gridBagConstraints);
 
         totalClientsLabelReq = new JLabel();
-        totalClientsLabelReq.setText(String.valueOf("0"));
+        totalClientsLabelReq.setText("0");
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridx = 3;
@@ -654,7 +654,7 @@ public class ModClusterDemo {
         clientStatusPanel.add(label, gridBagConstraints);
 
         liveClientsLabelReq = new JLabel();
-        liveClientsLabelReq.setText(String.valueOf("0"));
+        liveClientsLabelReq.setText("0");
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridx = 7;
@@ -670,7 +670,7 @@ public class ModClusterDemo {
         clientStatusPanel.add(label, gridBagConstraints);
 
         failedClientsLabelReq = new JLabel();
-        failedClientsLabelReq.setText(String.valueOf("0"));
+        failedClientsLabelReq.setText("0");
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridx = 11;
@@ -683,8 +683,8 @@ public class ModClusterDemo {
     private JPanel createSessionBalancingPanel() {
         final JPanel sessionBalancingPanel = new JPanel();
         GridBagLayout gridBagLayout = new GridBagLayout();
-        gridBagLayout.columnWidths = new int[] { 0 };
-        gridBagLayout.rowHeights = new int[] { 0, 0 };
+        gridBagLayout.columnWidths = new int[] {0};
+        gridBagLayout.rowHeights = new int[] {0, 0};
         sessionBalancingPanel.setLayout(gridBagLayout);
 
         JPanel sessionBalancingChart = new ChartPanel(this.chartManager.getSessionBalancingChart(), true);
@@ -699,8 +699,8 @@ public class ModClusterDemo {
 
         JPanel clientStatusPanel = new JPanel();
         gridBagLayout = new GridBagLayout();
-        gridBagLayout.columnWidths = new int[] { 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7 };
-        gridBagLayout.rowHeights = new int[] { 7, 0 };
+        gridBagLayout.columnWidths = new int[] {7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7};
+        gridBagLayout.rowHeights = new int[] {7, 0};
         clientStatusPanel.setLayout(gridBagLayout);
 
         gridBagConstraints = new GridBagConstraints();
@@ -719,7 +719,7 @@ public class ModClusterDemo {
         clientStatusPanel.add(label, gridBagConstraints);
 
         totalClientsLabelSess = new JLabel();
-        totalClientsLabelSess.setText(String.valueOf("0"));
+        totalClientsLabelSess.setText("0");
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridx = 3;
@@ -735,7 +735,7 @@ public class ModClusterDemo {
         clientStatusPanel.add(label, gridBagConstraints);
 
         liveClientsLabelSess = new JLabel();
-        liveClientsLabelSess.setText(String.valueOf("0"));
+        liveClientsLabelSess.setText("0");
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridx = 7;
@@ -751,7 +751,7 @@ public class ModClusterDemo {
         clientStatusPanel.add(label, gridBagConstraints);
 
         failedClientsLabelSess = new JLabel();
-        failedClientsLabelSess.setText(String.valueOf("0"));
+        failedClientsLabelSess.setText("0");
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridx = 11;
@@ -770,7 +770,7 @@ public class ModClusterDemo {
     private void start() {
         String sessionTimeoutText = sessionTimeoutField.getText();
         int sessionTimeout = -1;
-        if (sessionTimeoutText != null && sessionTimeoutText.trim().length() > 0) {
+        if (sessionTimeoutText != null && !sessionTimeoutText.trim().isEmpty()) {
             try {
                 sessionTimeout = Integer.parseInt(sessionTimeoutText);
             } catch (NumberFormatException e) {
@@ -787,7 +787,7 @@ public class ModClusterDemo {
                 requestURL = new URL(tmp);
                 destroyURL = new URL(tmp + "?destroy=true");
             } else {
-                String timeoutParam = (sessionTimeout > 0) ? "?timeout=" + String.valueOf(sessionTimeout) : "";
+                String timeoutParam = (sessionTimeout > 0) ? "?timeout=" + sessionTimeout : "";
                 requestURL = new URL(tmp + timeoutParam);
                 destroyURL = requestURL;
             }
@@ -798,25 +798,25 @@ public class ModClusterDemo {
 
         int num_threads = DEFAULT_NUM_THREADS;
         String numT = numThreadsField.getText();
-        if (numT != null && numT.trim().length() > 0) {
+        if (numT != null && !numT.trim().isEmpty()) {
             num_threads = Integer.parseInt(numT);
         }
 
         int session_life = DEFAULT_SESSION_LIFE;
         String sessL = sessionLifeField.getText();
-        if (sessL != null && sessL.trim().length() > 0) {
+        if (sessL != null && !sessL.trim().isEmpty()) {
             session_life = Integer.parseInt(sessL);
         }
 
         int sleep_time = DEFAULT_SLEEP_TIME;
         String sleepT = sleepTimeField.getText();
-        if (sleepT != null && sleepT.trim().length() > 0) {
+        if (sleepT != null && !sleepT.trim().isEmpty()) {
             sleep_time = Integer.parseInt(sleepT);
         }
 
         int startup_time = DEFAULT_STARTUP_TIME;
         String startT = startupTimeField.getText();
-        if (startT != null && startT.trim().length() > 0) {
+        if (startT != null && !startT.trim().isEmpty()) {
             startup_time = Integer.parseInt(startT);
         }
 
@@ -842,7 +842,7 @@ public class ModClusterDemo {
         String tmp = createBaseURL(targetHostNameField.getText(), targetPortField.getText())
                 + selectedLoadServlet.getServletPath();
         List<ServerLoadParam> params = selectedLoadServlet.getParams();
-        if (params.size() > 0) {
+        if (!params.isEmpty()) {
             String val = targetServletParamField1.getText();
             params.get(0).setValue(val);
             tmp += "?" + params.get(0).getName() + "=" + val;
@@ -887,7 +887,7 @@ public class ModClusterDemo {
     }
 
     private String createBaseURL(String hostText, String portText) {
-        if (portText == null || portText.trim().length() == 0)
+        if (portText == null || portText.trim().isEmpty())
             portText = "80";
         portText = portText.trim();
 
@@ -895,9 +895,9 @@ public class ModClusterDemo {
         if (contextPath == null)
             contextPath = "";
         contextPath = contextPath.trim();
-        if (contextPath.length() > 0 && '/' == contextPath.charAt(0))
+        if (!contextPath.isEmpty() && '/' == contextPath.charAt(0))
             contextPath = contextPath.length() == 1 ? "" : contextPath.substring(1);
-        if (contextPath.length() > 0 && '/' == contextPath.charAt(contextPath.length() - 1))
+        if (!contextPath.isEmpty() && '/' == contextPath.charAt(contextPath.length() - 1))
             contextPath = contextPath.length() == 1 ? "" : contextPath.substring(0, contextPath.length() - 1);
 
         return "http://" + hostText + ":" + portText + "/" + contextPath + "/";
@@ -938,7 +938,7 @@ public class ModClusterDemo {
         @Override
         public Component getListCellRendererComponent(JList<? extends ServerLoadServlets> list, ServerLoadServlets value, int index, boolean isSelected, boolean cellHasFocus) {
             this.setText(value.toString());
-            this.setToolTipText(((ServerLoadServlets) value).getDescription());
+            this.setToolTipText(value.getDescription());
             return this;
         }
     }

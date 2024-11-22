@@ -20,9 +20,9 @@ import org.jfree.data.xy.XYSeriesCollection;
 public class ChartManager {
     private final Map<String, AtomicInteger> requestCounts;
     private final Map<String, AtomicInteger> sessionCounts;
-    private final Map<String, Integer> lastRequestCounts = new HashMap<String, Integer>();
-    private final Map<String, XYSeries> requestSeries = new HashMap<String, XYSeries>();
-    private final Map<String, XYSeries> sessionSeries = new HashMap<String, XYSeries>();
+    private final Map<String, Integer> lastRequestCounts = new HashMap<>();
+    private final Map<String, XYSeries> requestSeries = new HashMap<>();
+    private final Map<String, XYSeries> sessionSeries = new HashMap<>();
     private final XYSeriesCollection requestSeriesCollection = new XYSeriesCollection();
     private final XYSeriesCollection sessionSeriesCollection = new XYSeriesCollection();
     private final JFreeChart requestBalancingChart;
@@ -81,7 +81,7 @@ public class ChartManager {
                 last = 0;
             }
 
-            int perSec = (int) ((current.intValue() - last.intValue()) / elapsed);
+            int perSec = (int) ((current - last) / elapsed);
 
             XYSeries series = requestSeries.get(key);
             if (series == null) {

@@ -5,15 +5,23 @@
 package org.jboss.modcluster.demo.servlet;
 
 import java.io.IOException;
+import java.io.Serial;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * @author Paul Ferraro
+ * @author Radoslav Husar
  */
+@WebServlet(
+        name = "cpu",
+        urlPatterns = {"/cpu"}
+)
 public class SystemLoadServlet extends LoadServlet {
-    /** The serialVersionUID */
+
+    @Serial
     private static final long serialVersionUID = 5665079393261425098L;
 
     @Override

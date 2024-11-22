@@ -5,26 +5,29 @@
 package org.jboss.modcluster.demo.servlet;
 
 import java.io.IOException;
+import java.io.Serial;
 import java.lang.management.ManagementFactory;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Iterator;
 import java.util.Map;
-
 import javax.management.JMException;
 import javax.management.MBeanServer;
 import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * @author Paul Ferraro
+ * @author Radoslav Husar
  */
 public class LoadServlet extends HttpServlet {
-    /** The serialVersionUID */
+
+    @Serial
     private static final long serialVersionUID = 5665079393261425098L;
 
     protected static final String DURATION = "duration";
@@ -37,8 +40,15 @@ public class LoadServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
+        // Set manually via 'jboss.mod_cluster.jvmRoute'
         this.jvmRoute = System.getProperty(JVM_ROUTE_SYSTEM_PROPERTY);
 
+        // WildFly
+        if (this.jvmRoute == null) {
+            this.jvmRoute = System.getProperty("jboss.node.name");
+        }
+
+        // TODO Adapt for Tomcat
         if (this.jvmRoute == null) {
             try {
                 MBeanServer server = ManagementFactory.getPlatformMBeanServer();
@@ -57,7 +67,7 @@ public class LoadServlet extends HttpServlet {
     }
 
     private ObjectName findObjectName(MBeanServer server, String key, String value, String... domains) throws MalformedObjectNameException {
-        for (String domain: domains) {
+        for (String domain : domains) {
             ObjectName name = ObjectName.getInstance(domain, key, value);
             if (server.isRegistered(name)) {
                 return name;

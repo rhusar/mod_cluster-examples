@@ -4,11 +4,15 @@
  */
 package org.jboss.modcluster.demo.servlet;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.Serial;
 import java.net.URI;
+
+import jakarta.servlet.annotation.WebInitParam;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import org.apache.http.client.methods.HttpHead;
 import org.apache.http.client.utils.HttpClientUtils;
@@ -19,8 +23,16 @@ import org.apache.http.impl.client.HttpClientBuilder;
  * @author Paul Ferraro
  * @author Radoslav Husar
  */
+@WebServlet(
+        name = "sessions",
+        urlPatterns = {"/sessions"},
+        initParams = {
+                @WebInitParam(name = "count", value = "20")
+        }
+)
 public class ActiveSessionsLoadServlet extends LoadServlet {
 
+    @Serial
     private static final long serialVersionUID = -946741803216943778L;
 
     @Override

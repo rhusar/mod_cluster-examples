@@ -5,19 +5,27 @@
 package org.jboss.modcluster.demo.servlet;
 
 import java.io.IOException;
+import java.io.Serial;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryUsage;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * @author Paul Ferraro
+ * @author Radoslav Husar
  */
+@WebServlet(
+        name = "heap",
+        urlPatterns = {"/heap"}
+)
 public class HeapMemoryLoadServlet extends LoadServlet {
-    /** The serialVersionUID */
+
+    @Serial
     private static final long serialVersionUID = -8183119455180366670L;
 
     private static final String RATIO = "ratio";
@@ -44,7 +52,7 @@ public class HeapMemoryLoadServlet extends LoadServlet {
         this.log((free / MB) + "MB free memory");
         this.log("Reserving " + (reserve / MB) + "MB (" + ((int) (ratio * 100)) + "%) of memory");
 
-        List<Object> list = new ArrayList<Object>(2);
+        List<Object> list = new ArrayList<>(2);
 
         if (free > Integer.MAX_VALUE) {
             list.add(new byte[(int) (reserve / Integer.MAX_VALUE)][Integer.MAX_VALUE]);
@@ -53,7 +61,6 @@ public class HeapMemoryLoadServlet extends LoadServlet {
         list.add(new byte[(int) (reserve % Integer.MAX_VALUE)]);
 
         try {
-
             Thread.sleep(duration);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
