@@ -1,0 +1,31 @@
+= mod_cluster Examples
+
+Set of examples demonstrating various features of the mod_cluster project.
+
+== Load Balancing Demo
+
+The original load-balancing demo originally in the main mod_cluster repository.
+
+== Building
+
+When building from source, first ensure JDK 17 or newer (run `java -version`) is installed.
+The following command builds all examples:
+
+[source,shell]
+----
+./mvnw clean install
+----
+
+== Reporting Issues
+
+Project mod_cluster uses Red Hat Jira issue tracker under MODCLUSTER project:
+
+https://issues.redhat.com/browse/MODCLUSTER
+
+Issues can also be filed using GitHub Issues of this repository:
+
+https://github.com/modcluster/mod_cluster-examples/issues
+
+== License
+
+* https://www.apache.org/licenses/LICENSE-2.0[Apache License 2.0]
