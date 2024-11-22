@@ -61,7 +61,7 @@ public class ChartManager {
     }
 
     public void updateStats() {
-        Integer xValue = new Integer(++seriesCount);
+        Integer xValue = ++seriesCount;
 
         long now = System.currentTimeMillis();
         long elapsed = (now - lastUpdateTime) / 1000L;
@@ -75,10 +75,10 @@ public class ChartManager {
 
         for (Map.Entry<String, AtomicInteger> entry : requestCounts.entrySet()) {
             String key = entry.getKey();
-            Integer current = new Integer(entry.getValue().get());
+            Integer current = entry.getValue().get();
             Integer last = lastRequestCounts.put(key, current);
             if (last == null) {
-                last = new Integer(0);
+                last = 0;
             }
 
             int perSec = (int) ((current.intValue() - last.intValue()) / elapsed);
@@ -88,7 +88,7 @@ public class ChartManager {
                 series = createRequestSeries(key);
             }
 
-            series.add(xValue, new Integer(perSec));
+            series.add(xValue, Integer.valueOf(perSec));
         }
 
         for (Map.Entry<String, AtomicInteger> entry : sessionCounts.entrySet()) {
@@ -98,7 +98,7 @@ public class ChartManager {
                 series = createSessionSeries(key);
             }
 
-            series.add(xValue, new Integer(entry.getValue().get()));
+            series.add(xValue, Integer.valueOf(entry.getValue().get()));
         }
     }
 
