@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author Paul Ferraro
+ * @author Radoslav Husar
  */
 public class LoadServlet extends HttpServlet {
     /** The serialVersionUID */
@@ -37,8 +38,15 @@ public class LoadServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
+        // Set manually via 'jboss.mod_cluster.jvmRoute'
         this.jvmRoute = System.getProperty(JVM_ROUTE_SYSTEM_PROPERTY);
 
+        // WildFly
+        if (this.jvmRoute == null) {
+            this.jvmRoute = System.getProperty("jboss.node.name");
+        }
+
+        // TODO Adapt for Tomcat
         if (this.jvmRoute == null) {
             try {
                 MBeanServer server = ManagementFactory.getPlatformMBeanServer();
