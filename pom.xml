@@ -7,13 +7,14 @@
     <parent>
         <groupId>org.jboss</groupId>
         <artifactId>jboss-parent</artifactId>
-        <version>41</version>
+        <version>47</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jboss.mod_cluster</groupId>
     <artifactId>mod_cluster-examples-parent</artifactId>
-    <version>2.0.4.Final-SNAPSHOT</version>
+    <name>mod_cluster Examples (parent)</name>
+    <version>2.1.0.Final-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <licenses>
@@ -31,8 +32,67 @@
         <tag>HEAD</tag>
     </scm>
 
+    <properties>
+        <!-- Require and build for JDK 17 -->
+        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+
+        <!-- Dependency versions -->
+        <version.mod_cluster>2.0.0.Final</version.mod_cluster>
+
+        <!-- Plugin versions -->
+        <version.org.wildfly.checkstyle-config>1.0.8.Final</version.org.wildfly.checkstyle-config>
+    </properties>
+
     <modules>
         <module>load-balancing-demo</module>
     </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- mod_cluster -->
+            <!-- TODO replace with a BOM once available -->
+            <dependency>
+                <groupId>org.jboss.mod_cluster</groupId>
+                <artifactId>mod_cluster-container-spi</artifactId>
+                <version>${version.mod_cluster}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.mod_cluster</groupId>
+                <artifactId>mod_cluster-container-tomcat-8.5</artifactId>
+                <version>${version.mod_cluster}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.mod_cluster</groupId>
+                <artifactId>mod_cluster-container-tomcat-9.0</artifactId>
+                <version>${version.mod_cluster}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.mod_cluster</groupId>
+                <artifactId>mod_cluster-core</artifactId>
+                <version>${version.mod_cluster}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.mod_cluster</groupId>
+                <artifactId>mod_cluster-load-spi</artifactId>
+                <version>${version.mod_cluster}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.mod_cluster</groupId>
+                <artifactId>mod_cluster-demo</artifactId>
+                <version>${version.mod_cluster}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.mod_cluster</groupId>
+                <artifactId>mod_cluster-demo-client</artifactId>
+                <version>${version.mod_cluster}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.mod_cluster</groupId>
+                <artifactId>mod_cluster-demo-server</artifactId>
+                <version>${version.mod_cluster}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>
