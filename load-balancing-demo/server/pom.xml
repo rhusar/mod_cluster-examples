@@ -12,18 +12,18 @@
     </parent>
 
     <artifactId>mod_cluster-demo-server</artifactId>
-    <name>mod_cluster Examples: Demo - Server</name>
     <packaging>war</packaging>
+    <name>mod_cluster Examples: Demo - Server</name>
 
     <dependencies>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+        </dependency>
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
         </dependency>
     </dependencies>
 
