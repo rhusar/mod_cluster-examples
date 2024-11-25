@@ -11,8 +11,8 @@
         <version>2.1.0.Final-SNAPSHOT</version>
     </parent>
     <artifactId>mod_cluster-demo-client</artifactId>
-    <name>mod_cluster Examples: Demo - Client</name>
     <packaging>jar</packaging>
+    <name>mod_cluster Examples: Demo - Client</name>
     <dependencies>
         <dependency>
             <groupId>jfree</groupId>

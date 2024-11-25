@@ -4,18 +4,18 @@
   ~ SPDX-License-Identifier: Apache-2.0
   -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.jboss</groupId>
         <artifactId>jboss-parent</artifactId>
         <version>47</version>
     </parent>
-
-    <modelVersion>4.0.0</modelVersion>
     <groupId>org.jboss.mod_cluster</groupId>
     <artifactId>mod_cluster-examples-parent</artifactId>
-    <name>mod_cluster Examples (parent)</name>
     <version>2.1.0.Final-SNAPSHOT</version>
     <packaging>pom</packaging>
+    <name>mod_cluster Examples (parent)</name>
 
     <licenses>
         <license>
@@ -25,11 +25,15 @@
         </license>
     </licenses>
 
+    <modules>
+        <module>load-balancing-demo</module>
+    </modules>
+
     <scm>
         <connection>scm:git:git@github.com:modcluster/mod_cluster-examples.git</connection>
         <developerConnection>scm:git:git@github.com:modcluster/mod_cluster-examples.git</developerConnection>
-        <url>https://github.com/modcluster/mod_cluster-examples</url>
         <tag>HEAD</tag>
+        <url>https://github.com/modcluster/mod_cluster-examples</url>
     </scm>
 
     <properties>
@@ -43,10 +47,6 @@
         <!-- Plugin versions -->
         <version.org.wildfly.checkstyle-config>1.0.8.Final</version.org.wildfly.checkstyle-config>
     </properties>
-
-    <modules>
-        <module>load-balancing-demo</module>
-    </modules>
 
     <dependencyManagement>
         <dependencies>
@@ -74,11 +74,6 @@
             </dependency>
             <dependency>
                 <groupId>org.jboss.mod_cluster</groupId>
-                <artifactId>mod_cluster-load-spi</artifactId>
-                <version>${version.mod_cluster}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.mod_cluster</groupId>
                 <artifactId>mod_cluster-demo</artifactId>
                 <version>${version.mod_cluster}</version>
             </dependency>
@@ -92,10 +87,48 @@
                 <artifactId>mod_cluster-demo-server</artifactId>
                 <version>${version.mod_cluster}</version>
             </dependency>
+            <dependency>
+                <groupId>org.jboss.mod_cluster</groupId>
+                <artifactId>mod_cluster-load-spi</artifactId>
+                <version>${version.mod_cluster}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <configuration>
+                        <linkXRef>false</linkXRef>
+                        <configLocation>wildfly-checkstyle/checkstyle.xml</configLocation>
+                        <consoleOutput>true</consoleOutput>
+                        <failsOnError>true</failsOnError>
+                        <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                        <excludes>**/*$logger.java,**/*$bundle.java</excludes>
+                        <useFile />
+                    </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.wildfly.checkstyle</groupId>
+                            <artifactId>wildfly-checkstyle-config</artifactId>
+                            <version>${version.org.wildfly.checkstyle-config}</version>
+                        </dependency>
+                    </dependencies>
+                    <executions>
+                        <execution>
+                            <id>check-style</id>
+                            <phase>compile</phase>
+                            <goals>
+                                <goal>checkstyle</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -110,39 +143,6 @@
                 <artifactId>maven-checkstyle-plugin</artifactId>
             </plugin>
         </plugins>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-checkstyle-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <id>check-style</id>
-                            <phase>compile</phase>
-                            <goals>
-                                <goal>checkstyle</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.wildfly.checkstyle</groupId>
-                            <artifactId>wildfly-checkstyle-config</artifactId>
-                            <version>${version.org.wildfly.checkstyle-config}</version>
-                        </dependency>
-                    </dependencies>
-                    <configuration>
-                        <linkXRef>false</linkXRef>
-                        <configLocation>wildfly-checkstyle/checkstyle.xml</configLocation>
-                        <consoleOutput>true</consoleOutput>
-                        <failsOnError>true</failsOnError>
-                        <includeTestSourceDirectory>true</includeTestSourceDirectory>
-                        <excludes>**/*$logger.java,**/*$bundle.java</excludes>
-                        <useFile/>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
     </build>
 
 </project>

@@ -12,8 +12,8 @@
     </parent>
 
     <artifactId>mod_cluster-demo</artifactId>
-    <name>mod_cluster Examples: Demo (parent)</name>
     <packaging>pom</packaging>
+    <name>mod_cluster Examples: Demo (parent)</name>
 
     <modules>
         <module>client</module>
@@ -36,14 +36,14 @@
                 <version>${version.jakarta.servlet-api}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpclient</artifactId>
-                <version>${version.http-client}</version>
-            </dependency>
-            <dependency>
                 <groupId>jfree</groupId>
                 <artifactId>jfreechart</artifactId>
                 <version>${version.jfreechart}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${version.http-client}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -54,11 +54,11 @@
                 <directory>${basedir}/src/main/resources</directory>
             </resource>
             <resource>
+                <filtering>true</filtering>
                 <directory>${project.build.sourceDirectory}</directory>
                 <excludes>
                     <exclude>**/*.java</exclude>
                 </excludes>
-                <filtering>true</filtering>
             </resource>
         </resources>
     </build>
