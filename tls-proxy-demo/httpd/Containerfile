@@ -1,0 +1,69 @@
+FROM fedora:latest AS builder
+
+ARG HTTPD_SOURCES="https://dlcdn.apache.org/httpd/httpd-2.4.63.tar.gz"
+ARG MPC_SOURCES="https://github.com/modcluster/mod_proxy_cluster/archive/refs/heads/main.zip"
+
+RUN dnf install gcc apr-devel apr-util-devel openssl openssl-devel pcre-devel redhat-rpm-config autoconf wcstools -y
+
+ENV CONF=httpd/mod_proxy_cluster.conf
+ENV HTTPD=${HTTPD_SOURCES}
+ENV MPC=${MPC_SOURCES}
+
+ADD ${HTTPD} .
+ADD ${MPC} .
+
+RUN unzip $(filename $MPC) && mv mod_proxy_cluster-*/native /native
+
+RUN mkdir /httpd && tar xvf $(filename $HTTPD) --strip 1 -C /httpd
+
+WORKDIR /httpd
+
+RUN ./configure --with-port=8000
+RUN make
+RUN make install
+
+# httpd is installed in /usr/local/apache2/bin/
+# build and install mod_proxy_cluster *.so files.
+WORKDIR /native
+RUN for m in advertise mod_proxy_cluster balancers mod_manager; \
+    do \
+        cd $m; \
+        echo "Building $m"; \
+        ./buildconf; \
+        ./configure --with-apxs=/usr/local/apache2/bin/apxs; \
+        make clean; \
+        make || exit 1; \
+        cp *.so /usr/local/apache2/modules; \
+        cd $OLDPWD; \
+    done;
+
+RUN rm -rf /test/httpd/mod_proxy_cluster
+RUN echo "Include conf/ssl.conf" >> /usr/local/apache2/conf/httpd.conf
+RUN echo "Include conf/mod_proxy_cluster.conf" >> /usr/local/apache2/conf/httpd.conf
+
+# SSL part
+## get the root certificate and config files
+COPY certs/ /usr/local/apache2/certs/
+# now generate all the necessary keys and certificates
+RUN cd /usr/local/apache2/certs && \
+    openssl genrsa -out ssl-demo-private.key 4096 && \
+    openssl req -new -key ssl-demo-private.key -out ssl-demo.csr -config csr.conf && \
+    openssl x509 -req -in ssl-demo.csr -CA rootCA.crt -CAkey rootCA.key -CAcreateserial -out ssl-demo.crt -days 7  -sha256 -extfile cert.conf
+
+###############################################
+
+FROM fedora:latest
+
+RUN dnf install pcre apr-util wcstools -y
+
+# get built and installed httpd with mod_proxy_cluster installed
+COPY --from=builder /usr/local/apache2 /usr/local/apache2
+
+WORKDIR /usr/local/apache2
+
+COPY mod_proxy_cluster.conf conf/
+COPY ssl.conf conf/
+
+ENTRYPOINT ["/usr/local/apache2/bin/apachectl"]
+CMD ["-D", "FOREGROUND"]
+

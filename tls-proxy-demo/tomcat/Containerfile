@@ -1,0 +1,41 @@
+FROM tomcat:11.0
+
+ARG MOD_CLUSTER_SOURCE="https://github.com/modcluster/mod_cluster/archive/refs/heads/main.zip"
+
+RUN apt-get update && apt-get install -y unzip maven
+
+ENV MC_SOURCE=${MOD_CLUSTER_SOURCE}
+
+RUN printenv
+
+ADD ${MC_SOURCE} .
+
+RUN ls
+
+RUN unzip $(basename ${MC_SOURCE}) && \
+    mv mod_cluster-* mod_cluster && \
+    cd mod_cluster && \
+    mvn clean install
+
+WORKDIR /usr/local/tomcat
+
+COPY target/*.jar lib/
+RUN mkdir webapps-javaee 
+
+COPY server.xml  conf/server.xml
+COPY --chmod=755 start.sh .
+
+# ssl part
+COPY certs certs
+# root certificate is used the same for all, so we can import it here
+# keys/certs are then generated per container as a part of start.sh
+RUN keytool -import -alias root -noprompt -trustcacerts -file certs/rootCA.crt -storepass changeit -keystore /root/.keystore
+
+# Add a simple demo app
+COPY app webapps/app
+
+ENV tomcat_port=8080
+ENV tomcat_jvm_route=tomcat
+
+CMD ["./start.sh"]
+

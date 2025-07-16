@@ -1,0 +1,32 @@
+services:
+  httpd:
+    image: httpd-mpc-ssl
+    ports:
+      - "8000:8000"
+    networks:
+      - ssl-demo
+
+  tomcat1:
+    image: tomcat-ssl
+    ports:
+      - "8080:8080"
+    networks:
+      - ssl-demo
+    environment:
+      tomcat_port: "8080"
+      tomcat_jvm_route: "appserver1"
+      tomcat_address: "tomcat1"
+
+  tomcat2:
+    image: tomcat-ssl
+    ports:
+      - "8081:8081"
+    networks:
+      - ssl-demo
+    environment:
+      tomcat_port: "8081"
+      tomcat_jvm_route: "appserver2"
+      tomcat_address: "tomcat2"
+
+networks:
+  ssl-demo: {}

@@ -14,3 +14,10 @@ buildNumber.properties
 
 # IntelliJ IDEA
 .idea/
+
+# ssl demo
+*.crt
+*.key
+*.srl
+tls-proxy-demo/ca/**
+

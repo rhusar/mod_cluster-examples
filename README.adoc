@@ -2,6 +2,11 @@
 
 Set of examples demonstrating various features of the mod_cluster project.
 
+== TLS/SSL demo
+
+A simple demo of two tomcats and httpd as proxy using https. For more information
+see the corresponding README within `tls-proxy-demo` directory.
+
 == Load Balancing Demo
 
 The original load-balancing demo originally in the main mod_cluster repository.
