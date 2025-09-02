@@ -9,13 +9,15 @@
     <parent>
         <groupId>org.jboss</groupId>
         <artifactId>jboss-parent</artifactId>
-        <version>49</version>
+        <version>50</version>
     </parent>
     <groupId>org.jboss.mod_cluster</groupId>
     <artifactId>mod_cluster-examples-parent</artifactId>
     <version>2.1.0.Final-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>mod_cluster Examples (parent)</name>
+    <description>Set of examples for the mod_cluster project.</description>
+    <url>https://www.modcluster.io</url>
 
     <licenses>
         <license>
@@ -36,10 +38,19 @@
         <url>https://github.com/modcluster/mod_cluster-examples</url>
     </scm>
 
+    <issueManagement>
+        <system>GitHub Issues</system>
+        <url>https://github.com/modcluster/mod_cluster-examples/issues</url>
+    </issueManagement>
+
+    <ciManagement>
+        <system>GitHub Actions</system>
+        <url>https://github.com/modcluster/mod_cluster-examples/actions</url>
+    </ciManagement>
+
     <properties>
         <!-- Require and build for JDK 17 -->
-        <maven.compiler.target>17</maven.compiler.target>
-        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.release>17</maven.compiler.release>
 
         <!-- Dependency versions -->
         <version.org.jboss.mod_cluster>2.1.0.Final</version.org.jboss.mod_cluster>
@@ -73,7 +84,7 @@
                         <failsOnError>true</failsOnError>
                         <includeTestSourceDirectory>true</includeTestSourceDirectory>
                         <excludes>**/*$logger.java,**/*$bundle.java</excludes>
-                        <useFile/>
+                        <useFile />
                     </configuration>
                     <dependencies>
                         <dependency>
@@ -95,14 +106,6 @@
             </plugins>
         </pluginManagement>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <configuration>
-                    <autoVersionSubmodules>true</autoVersionSubmodules>
-                    <tagNameFormat>@{project.version}</tagNameFormat>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
